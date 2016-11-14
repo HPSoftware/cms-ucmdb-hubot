@@ -55,7 +55,8 @@ function login() {
     data: {
       username: global.username,
       password: global.password,
-      clientContext: 1
+      clientContext: 1,
+      encrypted: true
     },
   };
 
