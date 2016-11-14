@@ -1,0 +1,4 @@
+/node_modules
+/test/xunit.xml
+/*-lint.xml
+/.idea
