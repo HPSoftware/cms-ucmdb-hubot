@@ -7,22 +7,22 @@ var Constants = require('./util/constants.js');
 var Utils = require('./util/utils.js');
 var UcmdbId = require('./ucmdbId.js');
 
-exports.calculateImpact = function (globalId, severity, bundles, callback) {
+exports.calculateImpact = function (globalId, severity, bundles, sendCallback, replyCallback) {
   globalId = globalId.trim();
   severity = severity.trim();
   bundles = bundles.trim();
 
-  callback({text: 'Calculating impact for *' + globalId + '* ...'});
+  replyCallback('Calculating impact for *' + globalId + '* ...');
 
   UcmdbId.getUcmdbId(globalId, (ucmdbId) => {
     if (ucmdbId == null) {
-      callback({text: 'No CI was found with the specified global id'});
+      sendCallback({text: 'No CI was found with the specified global id'});
       return;
     }
 
     severity = Utils.covertToUcmdbSeverity(severity);
     if(severity == null){
-      callback({text: 'Invalid severity. Please use one of available severities: ' + Constants.AVAILABLE_SEVERITIES.join(', ')});
+      sendCallback({text: 'Invalid severity. Please use one of available severities: ' + Constants.AVAILABLE_SEVERITIES.join(', ')});
       return;
     }
 
@@ -48,7 +48,7 @@ exports.calculateImpact = function (globalId, severity, bundles, callback) {
       var affectedCis = apiResult.affectedCIs;
       result.text = buildResultAffectedCisCountText(affectedCis);
       if(affectedCis == null){
-        callback(result);
+        sendCallback(result);
         return;
       }
 
@@ -84,7 +84,7 @@ exports.calculateImpact = function (globalId, severity, bundles, callback) {
         }
       }
       result.attachments = attachments;
-      callback(result);
+      sendCallback(result);
     });
   });
 };

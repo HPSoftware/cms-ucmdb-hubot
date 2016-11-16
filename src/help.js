@@ -5,7 +5,7 @@
 var Constants = require('./util/constants.js');
 
 
-exports.getAvailableCommands = function (callback) {
+exports.getAvailableCommands = function (sendCallback, replyCallback) {
   var result = {};
 
   result.text = 'The available commands are:';
@@ -63,5 +63,5 @@ exports.getAvailableCommands = function (callback) {
   };
   attachments.push(history);
 
-  callback(result);
+  sendCallback(result);
 }

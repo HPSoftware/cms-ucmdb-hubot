@@ -6,10 +6,10 @@ var api = require('./util/api.js');
 var Constants = require('./util/constants.js');
 var Utils = require('./util/utils.js');
 
-exports.search = function (searchString, callback) {
+exports.search = function (searchString, sendCallback, replyCallback) {
   searchString = searchString.trim();
 
-  callback({text: 'Searching for *' + searchString + '* ...'});
+  replyCallback('Searching for *' + searchString + '* ...');
 
   var params = {
     "nodes": [
@@ -45,7 +45,7 @@ exports.search = function (searchString, callback) {
     result.text = buildSearchResultCountText(cis);
 
     if (cis == null) {
-      callback(result);
+      sendCallback(result);
       return result;
     }
 
@@ -55,7 +55,7 @@ exports.search = function (searchString, callback) {
     });
     result.attachments = attachments;
 
-    callback(result);
+    sendCallback(result);
   });
 };
 

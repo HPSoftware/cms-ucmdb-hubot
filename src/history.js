@@ -7,15 +7,15 @@ var Constants = require('./util/constants.js');
 var Utils = require('./util/utils.js');
 var UcmdbId = require('./ucmdbId.js');
 
-exports.getHistory = function (globalId, duration, callback) {
+exports.getHistory = function (globalId, duration, sendCallback, replyCallback) {
   globalId = globalId.trim();
   duration = duration.trim();
 
-  callback({text: 'Retrieving history for *' + globalId + '* ...'});
+  replyCallback('Retrieving history for *' + globalId + '* ...');
 
   UcmdbId.getUcmdbId(globalId, (ucmdbId) => {
     if (ucmdbId == null) {
-      callback({text: 'No CI was found with the specified global id'});
+      sendCallback({text: 'No CI was found with the specified global id'});
       return;
     }
 
@@ -27,7 +27,7 @@ exports.getHistory = function (globalId, duration, callback) {
 
     api.request(Constants.HTTP_METHOD.GET, Constants.API_PATH.GET_HISTORY + historyUrlSufix, null, (historyResult) => {
       if(historyResult == null || historyResult.history == null || historyResult.history.length == 0 || historyResult.history[0].changes == null || historyResult.history[0].changes.length == 0){
-        callback({text: 'No history events were found for the specified CI'});
+        sendCallback({text: 'No history events were found for the specified CI'});
         return;
       }
 
@@ -50,7 +50,7 @@ exports.getHistory = function (globalId, duration, callback) {
       });
 
       result.attachments = [attachment];
-      callback(result);
+      sendCallback(result);
     });
   });
 };
