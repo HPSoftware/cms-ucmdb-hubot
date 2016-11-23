@@ -44,7 +44,7 @@ exports.getAvailableCommands = function (sendCallback, replyCallback) {
     text: 'Optional parameters: \n' +
     '-severity: one of ' + Constants.AVAILABLE_SEVERITIES.join(', ') + '. If not specified, critical severity is used by default.' + '\n' +
     '-bundles: a list of bundles, separated by comma(,). If not specified, all bundles are used by default.' + '\n' +
-    '*Example:* calculate impact 40081bf5623b04fa823f1ea996efc8b6 severity medium bundles bundle1, bundle2',
+    '*Example:* get impact 40081bf5623b04fa823f1ea996efc8b6 severity medium bundles bundle1, bundle2',
     color: Constants.COLOR.GREEN,
     fallback: ''
   };
