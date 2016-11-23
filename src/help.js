@@ -57,7 +57,7 @@ exports.getAvailableCommands = function (sendCallback, replyCallback) {
     title: 'Returns the history changes for the specified CI.',
     text: 'Optional parameters: \n' +
     '-last day/week/month: if not specified, last week is used by default.' + '\n' +
-    '*Example:* history 40081bf5623b04fa823f1ea996efc8b6 last day',
+    '*Example:* get history 40081bf5623b04fa823f1ea996efc8b6 last day',
     color: Constants.COLOR.GREY,
     fallback: ''
   };
